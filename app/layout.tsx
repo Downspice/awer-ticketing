@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <SidebarProvider>
           <AppSidebar />
@@ -68,7 +68,7 @@ export default function RootLayout({
                 </Breadcrumb> */}
               </div>
             </header>
-            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-url('/joseph.JPG')">
               {children}
             </div>
           </SidebarInset>

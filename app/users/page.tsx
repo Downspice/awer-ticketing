@@ -57,9 +57,9 @@ export default function UsersPage() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">User List</h1>
         <div className="flex space-x-4">
-          <Button asChild variant="outline">
+          {/* <Button asChild variant="outline">
             <Link href="/">Back to Dashboard</Link>
-          </Button>
+          </Button> */}
           <Button asChild>
             <Link href="/users/create">Create New User</Link>
           </Button>

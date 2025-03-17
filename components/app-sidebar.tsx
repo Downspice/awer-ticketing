@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
@@ -13,15 +13,10 @@ import {
   Settings2,
   SquareTerminal,
   Users2,
-} from "lucide-react"
+} from "lucide-react";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarRail,
-} from "@/components/ui/sidebar"
-import { NavSingleItems } from "./nav-single-items"
-
+import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
+import { NavSingleItems } from "./nav-single-items";
 // This is sample data.
 const data = {
   user: {
@@ -160,25 +155,30 @@ const data = {
       name: "Users",
       url: "/users",
       icon: Users2,
-    }
+    },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      {/* <SidebarHeader>
+    <>
+      <Sidebar collapsible="icon" {...props}>
+        {/* <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader> */}
-      <SidebarContent>
-        {/* <NavMain items={data.navMain} /> */}
-        {/* <NavProjects projects={data.projects} /> */}
-        <NavSingleItems singleItems={data.singleItems} />
-      </SidebarContent>
-      {/* <SidebarFooter>
+        <SidebarContent>
+          <div className="rounded-full">
+            <img src="/joseph.JPG" height='20rem' width='4rem' alt="my image" />
+          </div>
+          {/* <NavMain items={data.navMain} /> */}
+          {/* <NavProjects projects={data.projects} /> */}
+          <NavSingleItems singleItems={data.singleItems} />
+        </SidebarContent>
+        {/* <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter> */}
-      <SidebarRail />
-    </Sidebar>
-  )
+        <SidebarRail />
+      </Sidebar>
+    </>
+  );
 }
