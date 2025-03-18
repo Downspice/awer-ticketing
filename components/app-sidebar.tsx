@@ -5,6 +5,7 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  Building2,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -156,6 +157,11 @@ const data = {
       url: "/users",
       icon: Users2,
     },
+    {
+      name: "Projects",
+      url: "/projects",
+      icon: Building2,
+    },
   ],
 };
 
@@ -167,8 +173,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader> */}
         <SidebarContent>
-          <div className="rounded-full">
-            <img src="/joseph.JPG" height='20rem' width='4rem' alt="my image" />
+          <div className=" w-full">  
+            <img src='/logo.png'/>
           </div>
           {/* <NavMain items={data.navMain} /> */}
           {/* <NavProjects projects={data.projects} /> */}
