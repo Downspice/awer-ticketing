@@ -1,9 +1,15 @@
-export default function ProjectPage(){
+import { Key } from "react";
 
-    if(isLoading){
-        return<>the projects are loading......</>
-    }
-    return
-    <>
+export default function ProjectPage(){
+    const projects = await prisma.projects.findMany({
+          orderBy: {
+            name: "asc",
+          },
+        });
+
+    
+    return <>
+    {projects.map((project)=> 
+    <div key={project.id}>project</div>)} 
     </>
 }
