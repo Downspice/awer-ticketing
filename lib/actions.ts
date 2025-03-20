@@ -171,3 +171,20 @@ export async function createProject(data: CreateProjectData) {
     console.log("this error occurred", e);
   }
 }
+
+export async function toggleProjectStatus(projectId: string, enabled: boolean) {
+  try {
+    await prisma.projects.update({
+      where: { id: projectId },
+      data: {
+        enabled,
+      },
+    });
+
+    revalidatePath("/projects");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to toggle user status:", error);
+    throw new Error("Failed to toggle user status");
+  }
+}
