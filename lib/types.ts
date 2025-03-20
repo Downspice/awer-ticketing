@@ -64,3 +64,9 @@ export interface CreateProjectData {
   description: string;
   enabled: boolean;
 }
+
+export interface UpdateProjectData {
+  name: string;
+  description: string; 
+  enabled: boolean;
+}

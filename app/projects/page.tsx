@@ -1,25 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { toggleProjectStatus } from "@/lib/actions";
+import { Projects } from "@/lib/types";
 import Link from "next/link";
-import { Button } from "../../components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../components/ui/table";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { Switch } from "../../components/ui/switch";
-import type { Projects } from "../../lib/types";
-import { toggleProjectStatus } from "../../lib/actions";
+import { useEffect, useState } from "react";
+
+ 
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Projects[]>([]);

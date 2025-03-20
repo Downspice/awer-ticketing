@@ -1,147 +1,117 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
-import Link from "next/link"
-import { Button } from "../../../components/ui/button"
-import { Input } from "../../../components/ui/input"
-import { Label } from "../../../components/ui/label"
-import { Checkbox } from "../../../components/ui/checkbox"
-import { Switch } from "../../../components/ui/switch"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../../../components/ui/card"
-import { updateUser } from "../../../lib/actions"
-import { validateInput } from "../../../lib/utils"
-import type { User } from "../../../lib/types"
+import { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
+import { Label } from "../../../components/ui/label";
+import { Checkbox } from "../../../components/ui/checkbox";
+import { Switch } from "../../../components/ui/switch";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "../../../components/ui/card";
+import { updateProject } from "../../../lib/actions";
+import { validateInput } from "../../../lib/utils";
+import type { Projects } from "../../../lib/types";
 
 export default function EditUserPage() {
-  const router = useRouter()
-  const params=useParams()
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const router = useRouter();
+  const params = useParams();
+
+  const [project, setProject] = useState<Projects | null>(null);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    roles: {
-      admin: false,
-      technician: false,
-    },
+    name: "",
+    description: "",
     enabled: true,
-  })
+  });
   const [errors, setErrors] = useState({
-    fullName: "",
-    email: "",
-    roles: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+    name: "",
+    description: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchProject = async () => {
       try {
-        const response = await fetch(`/api/users/${params.id}`)
-        if (!response.ok) throw new Error("Failed to fetch user")
-        const data = await response.json()
-        setUser(data)
-
+        const param = params.id;
+        const response = await fetch(`/api/projects/${param}`);
+        if (!response.ok) throw new Error("Failed to fetch project");
+        const data = await response.json();
+        setProject(data);
         // Initialize form data
         setFormData({
-          fullName: data.fullName,
-          email: data.email,
-          roles: {
-            admin: data.roles.includes("admin"),
-            technician: data.roles.includes("technician"),
-          },
+          name: data.name,
+          description: data.description,
           enabled: data.enabled,
-        })
+        });
       } catch (error) {
-        console.error("Error fetching user:", error)
+        console.error("Error fetching project:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchUser()
-  }, [params.id])
+    fetchProject();
+  }, [params.id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear error when user types
+    // Clear error when project types
     if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }))
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
-  }
-
-  const handleRoleChange = (role: "admin" | "technician", checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      roles: {
-        ...prev.roles,
-        [role]: checked,
-      },
-    }))
-
-    // Clear role error if at least one role is selected
-    if (errors.roles && (checked || Object.values(formData.roles).some(Boolean))) {
-      setErrors((prev) => ({ ...prev, roles: "" }))
-    }
-  }
+  };
 
   const handleStatusChange = (checked: boolean) => {
     setFormData((prev) => ({
       ...prev,
       enabled: checked,
-    }))
-  }
+    }));
+  };
 
   const validateForm = () => {
     const newErrors = {
-      fullName: validateInput(formData.fullName),
-      email: validateInput(formData.email),
-      roles: !Object.values(formData.roles).some(Boolean) ? "At least one role must be selected" : "",
-    }
+      name: validateInput(formData.name),
+      description: validateInput(formData.description),
+    };
 
-    // Additional email validation
-    if (!newErrors.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
-    }
-
-    setErrors(newErrors)
-    return !Object.values(newErrors).some((error) => error)
-  }
+    setErrors(newErrors);
+    return !Object.values(newErrors).some((error) => error);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
-      // Convert roles object to array
-      const rolesArray = Object.entries(formData.roles)
-        .filter(([_, isSelected]) => isSelected)
-        .map(([role]) => role)
-
-      await updateUser(params.id, {
-        fullName: formData.fullName,
-        email: formData.email,
-        roles: rolesArray,
+      await updateProject(params.id, {
+        name: formData.name,
+        description: formData.description,
         enabled: formData.enabled,
-      })
-
-      router.push("/users")
-      router.refresh()
+      });
+      router.push("/projects");
+      router.refresh();
     } catch (error) {
-      console.error("Failed to update user:", error)
+      console.error("Failed to update user:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -150,10 +120,10 @@ export default function EditUserPage() {
           <p>Loading user details...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!user) {
+  if (!project) {
     return (
       <div className="container mx-auto py-8">
         <div className="flex flex-col items-center">
@@ -163,7 +133,7 @@ export default function EditUserPage() {
           </Button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -175,67 +145,46 @@ export default function EditUserPage() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="fullName">
+              <Label htmlFor="name">
                 Full Name <span className="text-red-500">*</span>
               </Label>
               <Input
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
+                id="name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
-                className={errors.fullName ? "border-red-500" : ""}
+                className={errors.name ? "border-red-500" : ""}
               />
-              {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name}</p>
+              )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">
-                Email <span className="text-red-500">*</span>
+              <Label htmlFor="description">
+                Description <span className="text-red-500">*</span>
               </Label>
               <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
+                id="description"
+                name="description"
+                type="description"
+                value={formData.description}
                 onChange={handleChange}
-                className={errors.email ? "border-red-500" : ""}
+                className={errors.description ? "border-red-500" : ""}
               />
-              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label>
-                Roles <span className="text-red-500">*</span>
-              </Label>
-              <div className="flex flex-col space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="admin"
-                    checked={formData.roles.admin}
-                    onCheckedChange={(checked) => handleRoleChange("admin", checked as boolean)}
-                  />
-                  <Label htmlFor="admin" className="font-normal">
-                    Admin
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="technician"
-                    checked={formData.roles.technician}
-                    onCheckedChange={(checked) => handleRoleChange("technician", checked as boolean)}
-                  />
-                  <Label htmlFor="technician" className="font-normal">
-                    Technician
-                  </Label>
-                </div>
-              </div>
-              {errors.roles && <p className="text-red-500 text-sm">{errors.roles}</p>}
+              {errors.description && (
+                <p className="text-red-500 text-sm">{errors.description}</p>
+              )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="enabled">Status</Label>
               <div className="flex items-center space-x-2">
-                <Switch id="enabled" checked={formData.enabled} onCheckedChange={handleStatusChange} />
+                <Switch
+                  id="enabled"
+                  checked={formData.enabled}
+                  onCheckedChange={handleStatusChange}
+                />
                 <Label htmlFor="enabled" className="font-normal">
                   {formData.enabled ? "Enabled" : "Disabled"}
                 </Label>
@@ -243,7 +192,11 @@ export default function EditUserPage() {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button type="button" variant="outline" onClick={() => router.push("/users")}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => router.push("/users")}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
@@ -253,6 +206,5 @@ export default function EditUserPage() {
         </form>
       </Card>
     </div>
-  )
+  );
 }
-

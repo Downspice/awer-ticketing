@@ -27,12 +27,13 @@ model Ticket {
 }
 
 model Projects {
-  id          String   @id @default(uuid())
+  id          String   @id @unique @default(uuid())
   name        String   @unique
   description String
   enabled     Boolean  @default(true)
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt 
+  updatedAt   DateTime @updatedAt
+  Ticket      Ticket[]
 }
 
 model User {

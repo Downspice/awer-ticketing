@@ -8,6 +8,7 @@ import type {
   UpdateUserData,
   TicketStatus,
   CreateProjectData,
+  UpdateProjectData,
 } from "../lib/types";
 
 export async function createTicket(data: CreateTicketData) {
@@ -186,5 +187,25 @@ export async function toggleProjectStatus(projectId: string, enabled: boolean) {
   } catch (error) {
     console.error("Failed to toggle user status:", error);
     throw new Error("Failed to toggle user status");
+  }
+}
+
+export async function updateProject(projectId: string, data: UpdateProjectData) {
+  try {
+    await prisma.$transaction([
+      prisma.projects.update({
+        where: { id: projectId },
+        data: {
+          name: data.name,
+          description: data.description, 
+          enabled: data.enabled,
+        },
+      }),
+    ]);
+    revalidatePath("/projects");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update project:", error);
+    throw new Error("Failed to update project");
   }
 }
