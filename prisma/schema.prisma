@@ -8,20 +8,32 @@ datasource db {
 }
 
 model Ticket {
-  id           Int      @id @default(autoincrement())
-  ticketNumber Int      @unique
-  name         String
-  priority     String
-  assignedToId String?
+  id             Int       @id @default(autoincrement())
+  ticketNumber   Int       @unique
+  name           String
+  priority       String
+  assignedToId   String?
   assignedToName String?
-  assignedTo   User?    @relation(fields: [assignedToId], references: [id]) 
-  description  String
-  status       String
-  cause        String?
-  solution     String?
-  holdReason   String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  projectId      String
+  assignedTo     User?     @relation(fields: [assignedToId], references: [id])
+  projects       Projects? @relation(fields: [projectId], references: [id])
+  description    String
+  status         String
+  cause          String?
+  solution       String?
+  holdReason     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Projects {
+  id          String   @id @unique @default(uuid())
+  name        String   @unique
+  description String
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Ticket      Ticket[]
 }
 
 model User {
@@ -34,4 +46,3 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
