@@ -1,15 +1,9 @@
-import { Key } from "react";
+import ProjectsCards from "@/components/projects/projectsCards";
 
-export default function ProjectPage(){
-    const projects = await prisma.projects.findMany({
-          orderBy: {
-            name: "asc",
-          },
-        });
-
-    
-    return <>
-    {projects.map((project)=> 
-    <div key={project.id}>project</div>)} 
+export default function ProjectPage() {
+  return (
+    <>
+      <ProjectsCards />
     </>
+  );
 }
