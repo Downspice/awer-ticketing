@@ -12,6 +12,15 @@ export interface User {
   updatedAt: Date;
 }
 
+export interface Projects {
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Ticket {
   id: number;
   ticketNumber: number;
@@ -53,5 +62,11 @@ export interface UpdateUserData {
 export interface CreateProjectData {
   name: string;
   description: string;
+  enabled: boolean;
+}
+
+export interface UpdateProjectData {
+  name: string;
+  description: string; 
   enabled: boolean;
 }
