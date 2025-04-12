@@ -5,21 +5,21 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import { Label } from "../../../components/ui/label";
-import { Checkbox } from "../../../components/ui/checkbox";
-import { Switch } from "../../../components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardFooter,
-} from "../../../components/ui/card";
-import { updateProject } from "../../../lib/actions";
-import { validateInput } from "../../../lib/utils";
-import type { Projects } from "../../../lib/types";
+} from "@/components/ui/card";
+import { updateProject } from "@/lib/actions";
+import { validateInput } from "@/lib/utils";
+import type { Projects } from "@/lib/types";
 
 export default function EditUserPage() {
   const router = useRouter();

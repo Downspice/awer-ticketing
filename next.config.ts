@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      { source: '/', destination: '/login', permanent: true }, // a permanent redirect
+    ];
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -14,6 +19,7 @@ const nextConfig: NextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
+    
   },
 };
 

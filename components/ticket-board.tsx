@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd"
-import StatusColumn from "../components/status-column"
-import SolvedModal from "../components/solved-modal"
-import OnHoldModal from "../components/on-hold-modal"
-import type { Ticket, TicketStatus } from "../lib/types"
-import { updateTicketStatus } from "../lib/actions"
+import StatusColumn from "@/components/status-column"
+import SolvedModal from "@/components/solved-modal"
+import OnHoldModal from "@/components/on-hold-modal"
+import type { Ticket, TicketStatus } from "@/lib/types"
+import { updateTicketStatus } from "@/lib/actions"
 
 export default function TicketBoard() {
   const [tickets, setTickets] = useState<Ticket[]>([])

@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import type { Ticket } from "../lib/types"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { Ticket } from "@/lib/types"
 
 interface TicketCardProps {
   ticket: Ticket
