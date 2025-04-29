@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      { source: '/', destination: '/login', permanent: true }, // a permanent redirect
+      { source: '/', destination: '/dashboard', permanent: true }, // a permanent redirect
     ];
   },
   eslint: {

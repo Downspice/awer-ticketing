@@ -54,8 +54,9 @@ export default async function RootLayout({
                   orientation="vertical"
                   className="mr-2 data-[orientation=vertical]:h-4"
                 />
+                <div className="flex justify-between">
                 Ticketing Management System
-                <PrivatePage/>
+                <PrivatePage/></div>
                 {/* <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className="hidden md:block">
