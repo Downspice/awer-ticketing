@@ -31,6 +31,7 @@ export async function createTicket(data: CreateTicketData) {
         name: data.name,
         priority: data.priority,
         assignedToId: data.assignedToId,
+        projectId: data.project,
         assignedToName: data.assignedToName,
         description: data.description,
         status: "Not Started",

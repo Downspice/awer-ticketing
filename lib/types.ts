@@ -44,6 +44,7 @@ export interface CreateTicketData {
   assignedToId: string;
   assignedToName: string;
   description: string;
+  
 }
 
 export interface CreateUserData {
