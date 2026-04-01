@@ -8,9 +8,10 @@ interface StatusColumnProps {
   title: string
   tickets: Ticket[]
   status: TicketStatus
+  onTicketClick: (ticket: Ticket) => void
 }
 
-export default function StatusColumn({ title, tickets, status }: StatusColumnProps) {
+export default function StatusColumn({ title, tickets, status, onTicketClick }: StatusColumnProps) {
   const getColumnColor = (status: TicketStatus) => {
     switch (status) {
       case "Not Started":
@@ -41,7 +42,7 @@ export default function StatusColumn({ title, tickets, status }: StatusColumnPro
                     {...provided.dragHandleProps}
                     className="mb-3"
                   >
-                    <TicketCard ticket={ticket} />
+                    <TicketCard ticket={ticket} onClick={onTicketClick} />
                   </div>
                 )}
               </Draggable>

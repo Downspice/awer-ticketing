@@ -68,7 +68,8 @@ export default function RootLayout({
                 </Breadcrumb> */}
               </div>
             </header>
-            <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-url('/joseph.JPG')">
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-4 bg-gradient-to-br from-background to-background/50 relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background -z-10 pointer-events-none" />
               {children}
             </div>
           </SidebarInset>

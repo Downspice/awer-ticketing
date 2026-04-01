@@ -93,6 +93,36 @@ export async function updateTicketAssignee(
   }
 }
 
+export async function updateTicketDetails(
+  ticketId: number,
+  data: {
+    priority: string;
+    projectId: string;
+    assignedToId: string | null;
+    assignedToName: string | null;
+    description: string;
+  }
+) {
+  try {
+    await prisma.ticket.update({
+      where: { id: ticketId },
+      data: {
+        priority: data.priority,
+        projectId: data.projectId,
+        assignedToId: data.assignedToId,
+        assignedToName: data.assignedToName,
+        description: data.description,
+      },
+    });
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update ticket details:", error);
+    throw new Error("Failed to update ticket details");
+  }
+}
+
+
 export async function createUser(data: CreateUserData) {
   console.log("create USER data ==>", data);
   try {

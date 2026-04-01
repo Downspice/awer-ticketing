@@ -26,6 +26,7 @@ export interface Ticket {
   ticketNumber: number;
   name: string;
   priority: TicketPriority;
+  projectId: string;
   assignedToId: string | null;
   assignedTo?: User;
   assignedToName: string;
@@ -41,10 +42,10 @@ export interface Ticket {
 export interface CreateTicketData {
   name: string;
   priority: string;
+  project: string;
   assignedToId: string;
   assignedToName: string;
   description: string;
-  
 }
 
 export interface CreateUserData {

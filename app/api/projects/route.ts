@@ -14,15 +14,15 @@ export async function GET() {
   }
 }
 
-export async function POST() {
+export async function POST(req: Request) {
     try {
-      const projects = await prisma.projects.create({
-        orderBy: {
-          name: "asc",
-        },
+      const data = await req.json();
+      const project = await prisma.projects.create({
+        data,
       });
-      return NextResponse.json(projects);
+      return NextResponse.json(project);
     } catch (e) {
       console.log("An error", e);
+      return NextResponse.json({ error: "Failed to create" }, { status: 500 });
     }
   }
