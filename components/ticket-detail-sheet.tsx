@@ -80,7 +80,7 @@ export function TicketDetailSheet({ ticket, open, onClose, onUpdated, projects, 
 
   return (
     <Sheet open={open} onOpenChange={(val) => !val && onClose()}>
-      <SheetContent className="w-full sm:max-w-md overflow-y-auto bg-background/95 backdrop-blur-md border-l border-primary/20">
+      <SheetContent className="w-full sm:max-w-md overflow-y-auto p-6 sm:p-8 bg-background/95 backdrop-blur-md border-l border-primary/20">
         <SheetHeader className="mb-6">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-2 text-xl">

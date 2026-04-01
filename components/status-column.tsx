@@ -28,11 +28,15 @@ export default function StatusColumn({ title, tickets, status, onTicketClick }: 
   }
 
   return (
-    <div className={`rounded-lg p-4 ${getColumnColor(status)}`}>
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
+    <div className={`rounded-lg p-4 flex flex-col max-h-[100dvh] ${getColumnColor(status)}`}>
+      <h2 className="text-xl font-semibold mb-4 shrink-0">{title}</h2>
       <Droppable droppableId={status}>
         {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps} className="min-h-[500px]">
+          <div 
+            ref={provided.innerRef} 
+            {...provided.droppableProps} 
+            className="min-h-[200px] flex-1 overflow-y-auto overflow-x-hidden pr-2 -mr-2"
+          >
             {tickets.map((ticket, index) => (
               <Draggable key={ticket.id.toString()} draggableId={ticket.id.toString()} index={index}>
                 {(provided) => (
