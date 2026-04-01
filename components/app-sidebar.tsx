@@ -148,8 +148,13 @@ const data = {
   ],
   singleItems: [
     {
-      name: "Tickets",
+      name: "Dashboard",
       url: "/",
+      icon: PieChart,
+    },
+    {
+      name: "Tickets",
+      url: "/tickets",
       icon: Frame,
     },
     {

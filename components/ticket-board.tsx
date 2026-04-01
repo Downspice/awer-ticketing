@@ -8,7 +8,6 @@ import OnHoldModal from "../components/on-hold-modal"
 import type { Ticket, TicketStatus } from "../lib/types"
 import { updateTicketStatus } from "../lib/actions"
 import type { Projects, User } from "@prisma/client"
-import { DashboardMetrics } from "./dashboard-metrics"
 import { TicketFilters, type TicketFilterState } from "./ticket-filters"
 import { TicketDetailSheet } from "./ticket-detail-sheet"
 
@@ -161,8 +160,6 @@ export default function TicketBoard() {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <DashboardMetrics tickets={tickets} />
-      
       <TicketFilters 
         filters={filters} 
         onFilterChange={setFilters} 
