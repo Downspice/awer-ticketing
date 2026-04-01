@@ -53,7 +53,7 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">User List</h1>
         <div className="flex space-x-4">
@@ -67,10 +67,10 @@ export default function UsersPage() {
       </div>
 
       <Card>
-        <CardHeader>
+        {/* <CardHeader>
           <CardTitle>Users</CardTitle>
-        </CardHeader>
-        <CardContent>
+        </CardHeader> */}
+        <CardContent className="pt-6">
           <Table>
             <TableHeader>
               <TableRow>

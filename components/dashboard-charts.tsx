@@ -59,9 +59,9 @@ export function DashboardCharts({ tickets }: DashboardChartsProps) {
       }
     })
     return [
-      { status: "Not Started", tickets: counts["Not Started"], fill: "var(--color-notStarted)" },
-      { status: "In Progress", tickets: counts["In Progress"], fill: "var(--color-inProgress)" },
-      { status: "On Hold", tickets: counts["On Hold"], fill: "var(--color-onHold)" },
+      { status: "Not Started", tickets: counts["Not Started"], fill: "var(--color-not-started)" },
+      { status: "In Progress", tickets: counts["In Progress"], fill: "var(--color-in-progress)" },
+      { status: "On Hold", tickets: counts["On Hold"], fill: "var(--color-on-hold)" },
       { status: "Solved", tickets: counts["Solved"], fill: "var(--color-solved)" },
     ]
   }, [tickets])
@@ -74,9 +74,9 @@ export function DashboardCharts({ tickets }: DashboardChartsProps) {
       }
     })
     return [
-      { priority: "High", tickets: counts["High"], fill: priorityConfig.high.color },
-      { priority: "Medium", tickets: counts["Medium"], fill: priorityConfig.medium.color },
-      { priority: "Low", tickets: counts["Low"], fill: priorityConfig.low.color },
+      { priority: "high", tickets: counts["High"], fill: priorityConfig.high.color },
+      { priority: "medium", tickets: counts["Medium"], fill: priorityConfig.medium.color },
+      { priority: "low", tickets: counts["Low"], fill: priorityConfig.low.color },
     ]
   }, [tickets])
 
@@ -117,7 +117,7 @@ export function DashboardCharts({ tickets }: DashboardChartsProps) {
                 paddingAngle={2}
               >
                 {priorityData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                  <Cell key={`cell-${index}`} fill={entry.fill} /> 
                 ))}
               </Pie>
               <ChartLegend content={<ChartLegendContent />} />

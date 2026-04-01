@@ -31,7 +31,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="container mx-auto py-8 mb-8 space-y-8">
+    <div className="container mx-auto space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
         <p className="text-muted-foreground mt-2">

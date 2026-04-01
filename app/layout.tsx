@@ -52,7 +52,7 @@ export default function RootLayout({
                   orientation="vertical"
                   className="mr-2 data-[orientation=vertical]:h-4"
                 />
-                Ticketing Management System
+                Awer Ticketing Management System
                 {/* <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className="hidden md:block">

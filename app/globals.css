@@ -92,6 +92,11 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-not-started: var(--not-started);
+  --color-in-progress: var(--in-progress);
+  --color-on-hold: var(--on-hold);
+  --color-solved: var(--solved);
 }
 
 @media (prefers-color-scheme: dark) {
