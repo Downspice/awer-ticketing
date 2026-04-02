@@ -10,6 +10,7 @@ import { updateTicketStatus } from "../lib/actions"
 import type { Projects, User } from "@prisma/client"
 import { TicketFilters, type TicketFilterState } from "./ticket-filters"
 import { TicketDetailSheet } from "./ticket-detail-sheet"
+import { Skeleton } from "../components/ui/skeleton"
 
 export default function TicketBoard() {
   const [tickets, setTickets] = useState<Ticket[]>([])
@@ -151,7 +152,29 @@ export default function TicketBoard() {
   }
 
   if (loading) {
-    return <div className="flex justify-center p-8 text-muted-foreground animate-pulse">Loading tickets and data...</div>
+    return (
+      <div className="flex flex-col w-full h-full space-y-6 p-4">
+        {/* Filters Skeleton */}
+        <div className="flex items-center space-x-4">
+          <Skeleton className="h-10 w-[200px]" />
+          <Skeleton className="h-10 w-[150px]" />
+          <Skeleton className="h-10 w-[150px]" />
+          <Skeleton className="h-10 w-[150px]" />
+        </div>
+        
+        {/* Board Columns Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="flex flex-col space-y-4">
+              <Skeleton className="h-8 w-1/2" />
+              <Skeleton className="h-[120px] w-full rounded-lg" />
+              <Skeleton className="h-[120px] w-full rounded-lg" />
+              <Skeleton className="h-[120px] w-full rounded-lg" />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   const getTicketsByStatus = (status: TicketStatus) => {

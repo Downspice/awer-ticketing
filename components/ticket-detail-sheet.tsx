@@ -128,7 +128,7 @@ export function TicketDetailSheet({ ticket, open, onClose, onUpdated, projects, 
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="unassigned">Unassigned</SelectItem>
-                    {users.map(u => (
+                    {users?.map(u => (
                       <SelectItem key={u.id} value={u.id}>{u.fullName}</SelectItem>
                     ))}
                   </SelectContent>

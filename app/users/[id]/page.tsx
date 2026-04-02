@@ -10,6 +10,7 @@ import { Input } from "../../../components/ui/input"
 import { Label } from "../../../components/ui/label"
 import { Checkbox } from "../../../components/ui/checkbox"
 import { Switch } from "../../../components/ui/switch"
+import { Skeleton } from "../../../components/ui/skeleton"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../../../components/ui/card"
 import { updateUser } from "../../../lib/actions"
 import { validateInput } from "../../../lib/utils"
@@ -127,7 +128,7 @@ export default function EditUserPage() {
         .filter(([, isSelected]) => isSelected)
         .map(([role]) => role)
 
-      await updateUser(params.id, {
+      await updateUser(params.id as string, {
         fullName: formData.fullName,
         email: formData.email,
         roles: rolesArray,
@@ -146,9 +147,33 @@ export default function EditUserPage() {
   if (loading) {
     return (
       <div className="container mx-auto py-8">
-        <div className="flex justify-center">
-          <p>Loading user details...</p>
-        </div>
+        <Card className="max-w-2xl mx-auto">
+          <CardHeader>
+            <Skeleton className="h-8 w-[150px]" />
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-[100px] w-full" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-10 w-[100px]" />
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Skeleton className="h-10 w-[100px]" />
+            <Skeleton className="h-10 w-[120px]" />
+          </CardFooter>
+        </Card>
       </div>
     )
   }

@@ -132,7 +132,7 @@ export function TicketFilters({ filters, onFilterChange, projects, users }: Tick
                   <SelectContent>
                     <SelectItem value="all">All Assignees</SelectItem>
                     <SelectItem value="unassigned">Unassigned</SelectItem>
-                    {users.map(u => (
+                    {users?.map(u => (
                       <SelectItem key={u.id} value={u.id}>{u.fullName}</SelectItem>
                     ))}
                   </SelectContent>

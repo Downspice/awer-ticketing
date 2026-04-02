@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "../../../components/ui/button"
+import { Skeleton } from "../../../components/ui/skeleton"
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
 import type { Ticket, User } from "../../../lib/types"
 import { updateTicketAssignee } from "../../../lib/actions"
@@ -73,9 +74,37 @@ export default function TicketDetailPage() {
   if (loading) {
     return (
       <div className="container mx-auto py-8">
-        <div className="flex justify-center">
-          <p>Loading ticket details...</p>
+        <div className="mb-6">
+          <Skeleton className="h-10 w-[150px]" />
         </div>
+        <Card className="max-w-4xl mx-auto">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-8 w-[300px]" />
+              <Skeleton className="h-8 w-[100px] rounded-full" />
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[100px]" />
+                <Skeleton className="h-6 w-[200px]" />
+              </div>
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[100px]" />
+                <Skeleton className="h-6 w-[200px]" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-24 w-full" />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     )
   }

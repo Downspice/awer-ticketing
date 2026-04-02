@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import { DashboardMetrics } from "@/components/dashboard-metrics"
+import { Skeleton } from "@/components/ui/skeleton"
 import { DashboardCharts } from "@/components/dashboard-charts"
 import { RecentUpdates } from "@/components/recent-updates"
 import type { Ticket } from "@/lib/types"
@@ -27,7 +28,21 @@ export default function DashboardPage() {
   }
 
   if (loading) {
-    return <div className="flex h-full min-h-[50vh] items-center justify-center text-muted-foreground animate-pulse">Loading dashboard...</div>
+    return (
+      <div className="container mx-auto space-y-8">
+        <div>
+          <Skeleton className="h-10 w-[250px] mb-2" />
+          <Skeleton className="h-4 w-[400px]" />
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Skeleton className="h-[120px] w-full rounded-xl" />
+          <Skeleton className="h-[120px] w-full rounded-xl" />
+          <Skeleton className="h-[120px] w-full rounded-xl" />
+          <Skeleton className="h-[120px] w-full rounded-xl" />
+        </div>
+        <Skeleton className="h-[400px] w-full rounded-xl" />
+      </div>
+    )
   }
 
   return (

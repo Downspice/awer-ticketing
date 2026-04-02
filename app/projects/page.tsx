@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toggleProjectStatus } from "@/lib/actions";
 import { Projects } from "@/lib/types";
@@ -55,9 +56,11 @@ export default function ProjectsPage() {
   if (loading) {
     return (
       <div className="container mx-auto py-8">
-        <div className="flex justify-center">
-          <p>Loading projects...</p>
+        <div className="flex justify-between items-center mb-8">
+          <Skeleton className="h-8 w-[200px]" />
+          <Skeleton className="h-10 w-[200px]" />
         </div>
+        <Skeleton className="h-[400px] w-full rounded-xl" />
       </div>
     );
   }

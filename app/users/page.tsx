@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Card, CardContent } from "../../components/ui/card"
 import { Switch } from "../../components/ui/switch"
 import { Badge } from "../../components/ui/badge"
+import { Skeleton } from "../../components/ui/skeleton"
 import type { User } from "../../lib/types"
 import { toggleUserStatus } from "../../lib/actions"
 import { Pencil } from "lucide-react"
@@ -46,9 +47,11 @@ export default function UsersPage() {
   if (loading) {
     return (
       <div className="container mx-auto py-8">
-        <div className="flex justify-center">
-          <p>Loading users...</p>
+        <div className="flex justify-between items-center mb-8">
+          <Skeleton className="h-8 w-[200px]" />
+          <Skeleton className="h-10 w-[150px]" />
         </div>
+        <Skeleton className="h-[400px] w-full rounded-xl" />
       </div>
     )
   }
