@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useMemo } from "react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, PieChart, Pie, Cell, ResponsiveContainer } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, PieChart, Pie, Cell } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
 import type { Ticket } from "@/lib/types"

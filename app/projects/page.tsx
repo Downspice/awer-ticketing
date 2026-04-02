@@ -1,13 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toggleProjectStatus } from "@/lib/actions";
 import { Projects } from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Pencil } from "lucide-react";
 
  
 
@@ -103,8 +104,11 @@ export default function ProjectsPage() {
                     />
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button asChild variant="ghost" size="sm">
-                      <Link href={`/projects/${project.id}`}>Edit</Link>
+                    <Button asChild variant="ghost" size="icon">
+                      <Link href={`/projects/${project.id}`}>
+                        <Pencil className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Link>
                     </Button>
                   </TableCell>
                 </TableRow>

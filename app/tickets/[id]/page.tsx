@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "../../../components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
@@ -13,7 +13,6 @@ import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "../../../lib/utils"
 
 export default function TicketDetailPage() {
-  const router = useRouter()
   const params=useParams();
   const [ticket, setTicket] = useState<Ticket | null>(null)
   const [loading, setLoading] = useState(true)

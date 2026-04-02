@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "../../components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
+import { Card, CardContent } from "../../components/ui/card"
 import { Switch } from "../../components/ui/switch"
 import { Badge } from "../../components/ui/badge"
 import type { User } from "../../lib/types"
 import { toggleUserStatus } from "../../lib/actions"
+import { Pencil } from "lucide-react"
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([])
@@ -99,8 +100,11 @@ export default function UsersPage() {
                     <Switch checked={user.enabled} onCheckedChange={() => handleToggleStatus(user.id, user.enabled)} />
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button asChild variant="ghost" size="sm">
-                      <Link href={`/users/${user.id}`}>Edit</Link>
+                    <Button asChild variant="ghost" size="icon">
+                      <Link href={`/users/${user.id}`}>
+                        <Pencil className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Link>
                     </Button>
                   </TableCell>
                 </TableRow>

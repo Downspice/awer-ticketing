@@ -52,7 +52,7 @@ export default function TicketCard({ ticket, onClick }: TicketCardProps) {
         <CardTitle className="text-xs font-semibold text-muted-foreground">
             #{ticket.ticketNumber}
         </CardTitle>
-        <Badge variant={getPriorityVariant(ticket.priority) as any} className="text-[10px] h-5 px-1.5 leading-none font-medium">
+        <Badge variant={getPriorityVariant(ticket.priority) as "default" | "secondary" | "destructive" | "outline"} className="text-[10px] h-5 px-1.5 leading-none font-medium">
             {ticket.priority}
         </Badge>
       </CardHeader>

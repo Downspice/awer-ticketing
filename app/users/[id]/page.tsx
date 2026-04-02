@@ -124,7 +124,7 @@ export default function EditUserPage() {
     try {
       // Convert roles object to array
       const rolesArray = Object.entries(formData.roles)
-        .filter(([_, isSelected]) => isSelected)
+        .filter(([, isSelected]) => isSelected)
         .map(([role]) => role)
 
       await updateUser(params.id, {

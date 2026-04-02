@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { updateTicketDetails } from "../lib/actions"
 import type { Projects, User } from "@prisma/client"
 import type { Ticket } from "../lib/types"
-import { Clock, User as UserIcon, Hash, CheckSquare } from "lucide-react"
+import { Clock, User as UserIcon, Hash, CheckSquare, Pencil } from "lucide-react"
 
 interface TicketDetailSheetProps {
   ticket: Ticket | null
@@ -88,7 +88,10 @@ export function TicketDetailSheet({ ticket, open, onClose, onUpdated, projects, 
               {ticket.ticketNumber}
             </SheetTitle>
             {!isEditing && (
-              <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>Edit</Button>
+              <Button variant="outline" size="icon" onClick={() => setIsEditing(true)}>
+                <Pencil className="h-4 w-4" />
+                <span className="sr-only">Edit</span>
+              </Button>
             )}
             {isEditing && (
               <div className="flex gap-2">

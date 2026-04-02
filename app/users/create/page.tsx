@@ -82,7 +82,7 @@ export default function CreateUserPage() {
     try {
       // Convert roles object to array
       const rolesArray = Object.entries(formData.roles)
-        .filter(([_, isSelected]) => isSelected)
+        .filter(([, isSelected]) => isSelected)
         .map(([role]) => role)
 
       await createUser({
