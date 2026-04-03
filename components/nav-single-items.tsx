@@ -25,14 +25,14 @@ export function NavSingleItems({
   const pathname = usePathname()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup>
       <SidebarGroupLabel>Menus</SidebarGroupLabel>
       <SidebarMenu>
         {singleItems.map((item) => {
           const isActive = pathname === item.url || (item.url !== "/" && pathname?.startsWith(item.url))
           return (
             <SidebarMenuItem key={item.name}>
-              <SidebarMenuButton asChild isActive={isActive}>
+              <SidebarMenuButton asChild isActive={isActive} tooltip={item.name}>
                 <a href={item.url}>
                   <item.icon />
                   <span>{item.name}</span>

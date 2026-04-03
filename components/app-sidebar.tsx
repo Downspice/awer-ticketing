@@ -179,7 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader> */}
         <SidebarContent>
-          <div className=" w-full px-4 py-2">  
+          <div className="w-full px-4 py-2 group-data-[collapsible=icon]:hidden">  
             <Image src='/logo.png' alt="Logo" width={200} height={50} />
           </div>
           {/* <NavMain items={data.navMain} /> */}
