@@ -2,34 +2,30 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
-// import {
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   BreadcrumbLink,
-//   BreadcrumbList,
-//   BreadcrumbPage,
-//   BreadcrumbSeparator,
-// } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  fallback: ["system-ui", "sans-serif"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  fallback: ["ui-monospace", "monospace"],
 });
 
 export const metadata: Metadata = {
-  title: "Awer Ticketing",
-  description: "A ticketing management system supporting drag and dop features",
+  title: "Awer Ticketing - Support & Issue Tracker",
+  description: "Modern, streamlined ticketing and project management system.",
 };
 
 export default function RootLayout({
@@ -38,42 +34,49 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-              <div className="flex items-center gap-2 px-4">
-                <SidebarTrigger className="-ml-1" />
-                <Separator
-                  orientation="vertical"
-                  className="mr-2 data-[orientation=vertical]:h-4"
-                />
-                Awer Ticketing Management System
-                {/* <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">
-                        Building Your Application
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb> */}
-              </div>
-            </header>
-            <div className="flex flex-1 flex-col gap-4 p-4 pt-4 bg-gradient-to-br from-background to-background/50 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background -z-10 pointer-events-none" />
-              {children}
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset className="flex flex-col min-h-screen">
+              <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border/60 bg-background/80 px-4 backdrop-blur-md transition-all">
+                <div className="flex items-center gap-2.5">
+                  <SidebarTrigger className="-ml-1 text-muted-foreground hover:text-foreground" />
+                  <Separator
+                    orientation="vertical"
+                    className="mr-1 h-4 bg-border/60"
+                  />
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm tracking-tight text-foreground">
+                      Awer Ticketing
+                    </span>
+                    <span className="hidden sm:inline-flex items-center rounded-md bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
+                      Workspace
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                </div>
+              </header>
+
+              <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
+                <div className="max-w-7xl mx-auto w-full">
+                  {children}
+                </div>
+              </main>
+            </SidebarInset>
+          </SidebarProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

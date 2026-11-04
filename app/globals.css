@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -13,7 +15,7 @@
   --primary: #2563eb;
   --primary-foreground: #ffffff;
   
-  --secondary: #e2e8f0;
+  --secondary: #f1f5f9;
   --secondary-foreground: #0f172a;
   
   --muted: #f1f5f9;
@@ -46,10 +48,60 @@
   --chart-4: #60a5fa;
   --chart-5: #bfdbfe;
 
+  --not-started: #64748b;
+  --in-progress: #f59e0b;
+  --on-hold: #8b5cf6;
+  --solved: #10b981;
+}
+
+.dark {
+  --background: #090d16;
+  --foreground: #f8fafc;
+  
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+  
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #3b82f6;
+  
+  --sidebar-background: #0b1120;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #3b82f6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #1e293b;
+  --sidebar-ring: #3b82f6;
+
+  --chart-1: #3b82f6;
+  --chart-2: #38bdf8;
+  --chart-3: #60a5fa;
+  --chart-4: #818cf8;
+  --chart-5: #c084fc;
+
   --not-started: #94a3b8;
-  --in-progress: #eab308;
-  --on-hold: #a855f7;
-  --solved: #22c55e;
+  --in-progress: #fbbf24;
+  --on-hold: #a78bfa;
+  --solved: #34d399;
 }
 
 @theme inline {
@@ -59,8 +111,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -90,8 +140,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif);
+  --font-mono: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
 
   --color-not-started: var(--not-started);
   --color-in-progress: var(--in-progress);
@@ -99,80 +149,28 @@
   --color-solved: var(--solved);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --background: #0a0a0a;
-    --foreground: #ededed; */
-    --background: #0a0a0a;
-    --foreground: #f82727;
-    --card: #0a0a0a;
-    --card-foreground: #fafafa;
-    --popover: #0a0a0a;
-    --popover-foreground: #fafafa;
-    --primary: #fafafa;
-    --primary-foreground: #171717;
-    --secondary: #262626;
-    --secondary-foreground: #fafafa;
-    --muted: #262626;
-    --muted-foreground: #a2a2a2;
-    --accent: #262626;
-    --accent-foreground: #fafafa;
-    --destructive: #801818;
-    --destructive-foreground: #fafafa;
-    --border: #262626;
-    --input: #262626;
-    --ring: #d4d4d4;
-    --chart-1: #1473e6;
-    --chart-2: #1e9c84;
-    --chart-3: #ffa14f;
-    --chart-4: #a24ad3;
-    --chart-5: #e63e75;
-    --sidebar-background: #17191a;
-    --sidebar-foreground: #f3f3f3;
-    --sidebar-primary: #1e5fbf;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #262627;
-    --sidebar-accent-foreground: #f3f3f3;
-    --sidebar-border: #262627;
-    --sidebar-ring: #1b82f1;
-    --background: #0a0f1a;
-    --foreground: #f0f9ff;
-    
-    --card: #0a0f1a;
-    --card-foreground: #f0f9ff;
-    
-    --popover: #0a0f1a;
-    --popover-foreground: #f0f9ff;
-    
-    --primary: #3c81ff;
-    --primary-foreground: #1a1f2b;
-    
-    --secondary: #202733;
-    --secondary-foreground: #f0f9ff;
-    
-    --muted: #202733;
-    --muted-foreground: #8695b3;
-    
-    --accent: #202733;
-    --accent-foreground: #f0f9ff;
-    
-    --destructive: #7f1f1f;
-    --destructive-foreground: #f0f9ff;
-    
-    --border: #202733;
-    --input: #202733;
-    --ring: #2973c7;
-    
-    /* Status Colors - Dark Mode */
-    --not-started: #3c81ff;
-    --in-progress: #ffcc00;
-    --on-hold: #705bf5;
-    --solved: #268f43;    
-  }
-}
-
-  body {
+body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  }
+  min-height: 100vh;
+}
+
+/* Custom smooth scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}

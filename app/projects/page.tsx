@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
@@ -17,7 +18,7 @@ import {
 import { ProjectForm } from "@/components/project-form"
 import { toggleProjectStatus } from "@/lib/actions";
 import { Projects } from "@/lib/types";
-import { Pencil, Plus } from "lucide-react";
+import { FolderKanban, Pencil, Plus } from "lucide-react";
 
 export default function ProjectsPage() {
   const router = useRouter()
@@ -50,7 +51,6 @@ export default function ProjectsPage() {
   ) => {
     try {
       await toggleProjectStatus(projectId, !currentStatus);
-      // Update local state
       setProjects(
         projects.map((project) =>
           project.id === projectId
@@ -78,57 +78,99 @@ export default function ProjectsPage() {
 
   if (loading) {
     return (
-      <div className="container mx-auto py-8">
-        <div className="flex justify-between items-center mb-8">
-          <Skeleton className="h-8 w-[200px]" />
-          <Skeleton className="h-10 w-[200px]" />
+      <div className="space-y-6">
+        <div className="flex justify-between items-center pb-4 border-b border-border/40">
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-48" />
+            <Skeleton className="h-4 w-72" />
+          </div>
+          <Skeleton className="h-9 w-36" />
         </div>
-        <Skeleton className="h-[400px] w-full rounded-xl" />
+        <Skeleton className="h-[380px] w-full rounded-xl" />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Projects List</h1>
-        <Button onClick={() => setIsCreateOpen(true)}>
-          <Plus className="mr-2 h-4 w-4" /> Create New Project
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-border/40">
+        <div>
+          <div className="flex items-center gap-2">
+            <FolderKanban className="h-5 w-5 text-primary" />
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              Projects Management
+            </h1>
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Configure project workspaces, ownership, and ticket assignment targets.
+          </p>
+        </div>
+
+        <Button onClick={() => setIsCreateOpen(true)} className="gap-2 shadow-xs bg-primary text-primary-foreground hover:bg-primary/90 w-fit">
+          <Plus className="h-4 w-4" /> Create New Project
         </Button>
       </div>
 
-      <Card>
-        <CardContent className="pt-6">
+      <Card className="border border-border/70 bg-card/60 backdrop-blur-xs shadow-xs overflow-hidden">
+        <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Action</TableHead>
+              <TableRow className="border-b border-border/60 bg-muted/30">
+                <TableHead className="font-semibold text-xs text-muted-foreground">Name</TableHead>
+                <TableHead className="font-semibold text-xs text-muted-foreground">Description</TableHead>
+                <TableHead className="font-semibold text-xs text-muted-foreground">Status</TableHead>
+                <TableHead className="font-semibold text-xs text-muted-foreground text-right pr-6">Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {projects.map((project) => (
-                <TableRow key={project.id}>
-                  <TableCell className="font-medium">{project.name}</TableCell>
-                  <TableCell>{project.description}</TableCell>
-                  <TableCell>
-                    <Switch
-                      checked={project.enabled}
-                      onCheckedChange={() =>
-                        handleToggleStatus(project.id, project.enabled)
-                      }
-                    />
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon" onClick={() => handleEdit(project.id)}>
-                      <Pencil className="h-4 w-4" />
-                      <span className="sr-only">Edit</span>
-                    </Button>
+              {projects.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4} className="h-32 text-center text-sm text-muted-foreground">
+                    No projects found. Click &quot;Create New Project&quot; to add your first one.
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                projects.map((project) => (
+                  <TableRow key={project.id} className="border-b border-border/40 hover:bg-muted/30 transition-colors">
+                    <TableCell className="font-medium text-sm text-foreground">{project.name}</TableCell>
+                    <TableCell className="text-xs text-muted-foreground max-w-xs truncate">
+                      {project.description || "No description provided"}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2.5">
+                        <Switch
+                          checked={project.enabled}
+                          onCheckedChange={() =>
+                            handleToggleStatus(project.id, project.enabled)
+                          }
+                          aria-label={`Toggle ${project.name} status`}
+                        />
+                        <Badge
+                          variant={project.enabled ? "default" : "secondary"}
+                          className={`text-[10px] h-5 px-1.5 font-medium ${
+                            project.enabled
+                              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
+                              : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          {project.enabled ? "Active" : "Disabled"}
+                        </Badge>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right pr-6">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                        onClick={() => handleEdit(project.id)}
+                      >
+                        <Pencil className="h-3.5 w-3.5" />
+                        <span className="sr-only">Edit {project.name}</span>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </CardContent>
@@ -136,7 +178,7 @@ export default function ProjectsPage() {
 
       {/* Create Project Sheet */}
       <Sheet open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <SheetContent className="sm:max-w-[540px]">
+        <SheetContent className="sm:max-w-[540px] overflow-y-auto">
           <SheetHeader className="mb-6">
             <SheetTitle>Create New Project</SheetTitle>
             <SheetDescription>
@@ -151,11 +193,14 @@ export default function ProjectsPage() {
       </Sheet>
 
       {/* Edit Project Sheet */}
-      <Sheet open={isEditOpen} onOpenChange={(open) => {
-        setIsEditOpen(open)
-        if (!open) setSelectedProjectId(undefined)
-      }}>
-        <SheetContent className="sm:max-w-[540px]">
+      <Sheet
+        open={isEditOpen}
+        onOpenChange={(open) => {
+          setIsEditOpen(open)
+          if (!open) setSelectedProjectId(undefined)
+        }}
+      >
+        <SheetContent className="sm:max-w-[540px] overflow-y-auto">
           <SheetHeader className="mb-6">
             <SheetTitle>Edit Project</SheetTitle>
             <SheetDescription>
